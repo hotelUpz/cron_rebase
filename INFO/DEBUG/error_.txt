@@ -1,0 +1,3 @@
+Error in 'get_qty_precisions' at /home/kali/Desktop/ALL_PROJECT/TREADING/SLAVIK/CRON_deploy/cron_my_refact/c_utils.py, line 227: 'NoneType' object is not subscriptable
+Error: BinancePrivateApi.cancel_orders_by_symbol_side() takes 5 positional arguments but 6 were given
+Error: unsupported operand type(s) for /: 'float' and 'NoneType'

@@ -1,0 +1,70 @@
+{
+    "Nik": {
+        "cron": {
+            "ARIAUSDT": {
+                "qty_precision": 0,
+                "price_precision": 5,
+                "LONG": {
+                    "avg_progress_counter": 3,
+                    "avg_progress_real": 3,
+                    "avg_price": 0.1139882027004,
+                    "entry_price": 0.12521957247163595,
+                    "comul_qty": 3005.0,
+                    "notional": 272.3732,
+                    "in_position": true,
+                    "problem_closed": false,
+                    "process_volume": 0.0,
+                    "is_tp": false,
+                    "is_sl": false,
+                    "c_time": 1763419051514
+                },
+                "SHORT": {
+                    "avg_progress_counter": 1,
+                    "avg_progress_real": 1,
+                    "avg_price": 0.0903420547945,
+                    "entry_price": 0.0903420547945,
+                    "comul_qty": 949.0,
+                    "notional": 86.01736,
+                    "in_position": true,
+                    "problem_closed": false,
+                    "process_volume": 0.0,
+                    "is_tp": false,
+                    "is_sl": false,
+                    "c_time": 1763419051514
+                }
+            },
+            "BRUSDT": {
+                "qty_precision": 0,
+                "price_precision": 5,
+                "LONG": {
+                    "avg_progress_counter": 1,
+                    "avg_progress_real": 1,
+                    "avg_price": 0.06479,
+                    "entry_price": 0.06479,
+                    "comul_qty": 1325.0,
+                    "notional": 85.618479,
+                    "in_position": true,
+                    "problem_closed": false,
+                    "process_volume": 0.0,
+                    "is_tp": false,
+                    "is_sl": false,
+                    "c_time": 1763419051514
+                },
+                "SHORT": {
+                    "avg_progress_counter": 1,
+                    "avg_progress_real": 1,
+                    "avg_price": 0.0645479819277,
+                    "entry_price": 0.0645479819277,
+                    "comul_qty": 1328.0,
+                    "notional": 85.81233216,
+                    "in_position": true,
+                    "problem_closed": false,
+                    "process_volume": 0.0,
+                    "is_tp": false,
+                    "is_sl": false,
+                    "c_time": 1763419051514
+                }
+            }
+        }
+    }
+}
