@@ -230,7 +230,7 @@ TG_BOT_ID: str = "610822492" # -- id бота
 
 # ----------- UTILS ---------------
 TZ_STR: str = "Europe/Berlin"              # часовой пояс ("Europe/Berlin")
-WRITE_TO_LOG: bool = True                  # флаг записи логов в файл
+WRITE_TO_LOG: bool = False                  # флаг записи логов в файл
 MAX_LOG_LINES: int = 1001                  # количество строк в лог файлах
 
 # --- STYLES ---

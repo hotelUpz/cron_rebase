@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 from datetime import datetime
 import time
-from pprint import pprint
+# from pprint import pprint
 from typing import *
 from a_settings import *
 from b_context import BotContext, BaseDataInitializer, PositionVarsSetup
@@ -25,24 +25,24 @@ import traceback
 
 RUTINE_CYCLE_FREQUENCY: float = 1.0          # seconds. частота работы главного цикла
 
-import json
+# import json
 
-def save_to_json(data: Optional[dict], filename="cache_data.json"):
-    """
-    Сохраняет словарь/список в JSON-файл с отступами.
+# def save_to_json(data: Optional[dict], filename="cache_data.json"):
+#     """
+#     Сохраняет словарь/список в JSON-файл с отступами.
 
-    :param data: dict или list – данные для сохранения
-    :param filename: str – путь до файла (например, '/home/user/data.json')
-    """
-    try:
-        # Убедимся, что директория существует
-        # os.makedirs(os.path.dirname(filename), exist_ok=False)
+#     :param data: dict или list – данные для сохранения
+#     :param filename: str – путь до файла (например, '/home/user/data.json')
+#     """
+#     try:
+#         # Убедимся, что директория существует
+#         # os.makedirs(os.path.dirname(filename), exist_ok=False)
 
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
-        print(f"Файл сохранён: {filename}")
-    except Exception as e:
-        print(f"Ошибка при сохранении: {e}")
+#         with open(filename, 'w', encoding='utf-8') as f:
+#             json.dump(data, f, ensure_ascii=False, indent=4)
+#         print(f"Файл сохранён: {filename}")
+#     except Exception as e:
+#         print(f"Ошибка при сохранении: {e}")
 
 
 def generate_bible_quote():
@@ -269,7 +269,7 @@ class Core:
                 break
             await asyncio.sleep(0.1)
 
-        save_to_json(self.context.ws_price_data, "ws_price_data.json")
+        # save_to_json(self.context.ws_price_data, "ws_price_data.json")
         print(self.all_users)
 
         asyncio.create_task(self.sync.positions_flow_manager())
@@ -278,7 +278,7 @@ class Core:
 
         print("Начало основного цикла...")
         # print(self.context.position_vars)
-        save_to_json(self.context.position_vars)        
+        # save_to_json(self.context.position_vars)        
         # pprint(self.context.total_settings)
         # return
 

@@ -5,7 +5,7 @@ import re
 from datetime import datetime
 if TYPE_CHECKING:
     from b_context import BotContext
-from c_log import ErrorHandler, log_time, TIME_ZONE
+from c_log import ErrorHandler, TIME_ZONE
 from decimal import Decimal, getcontext
 
 
@@ -44,7 +44,6 @@ def get_proxy_list(cfg_list: Optional[List]) -> List[Optional[str]]:
             result.append(url)
 
     return result
-
 
 # def get_proxy_list(cfg_list: List) -> List[Optional[str]]:
 #     """
