@@ -151,10 +151,6 @@ class UsersSettings():
                     "tp": 0.6,  # TP             # %, float, положительное значение. Отключено -- None
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
-                    "is_martin": False,           # использовать Мартин Гейл
-                    "force_martin": False,        # Перезаходим по Мартину, не дожидаясь нового сигнала
-                    "martin_multipliter": 2.5,   # множитель Мартин Гейла
-                    "reverse": False              # reverse при Мартине
                 },
             },
 
@@ -175,18 +171,18 @@ class UsersSettings():
 
             "proxies": [
                 {
-                    "enable": True,                   #  Берлин новый 18.102025
-                    "proxy_address": "154.219.192.28",
-                    "proxy_port": "62772",
-                    "proxy_login": "1FDJcwJR",
-                    "proxy_password": "U2yrFg4a"
-                },
-                {
                     "enable": True,
                     "proxy_address": '45.192.135.214',
                     "proxy_port": '59100',
                     "proxy_login":'nikolassmsttt0Icgm',
                     "proxy_password": 'agrYpvDz7D'
+                },
+                {
+                    "enable": True,                   #  Берлин новый 18.102025
+                    "proxy_address": "154.219.192.28",
+                    "proxy_port": "62772",
+                    "proxy_login": "1FDJcwJR",
+                    "proxy_password": "U2yrFg4a"
                 }
             ],
 
@@ -208,10 +204,6 @@ class UsersSettings():
                     "tp": 0.6,  # TP             # %, float, положительное значение. Отключено -- None
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
-                    "is_martin": False,           # использовать Мартин Гейл
-                    "force_martin": False,        # Перезаходим по Мартину, не дожидаясь нового сигнала
-                    "martin_multipliter": 2.5,   # множитель Мартин Гейла
-                    "reverse": False              # reverse при Мартине
                 },
             },
 
