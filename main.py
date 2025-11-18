@@ -272,7 +272,7 @@ class Core:
         # save_to_json(self.context.ws_price_data, "ws_price_data.json")
         print(self.all_users)
 
-        asyncio.create_task(self.sync.positions_flow_manager())
+        asyncio.create_task(self.sync.run_positions_sync_loop())
         while not self.context.stop_bot and not all(self.context.first_update_done.get(user_name, False) for user_name in self.all_users):
             await asyncio.sleep(0.1)
 
@@ -369,6 +369,7 @@ class Core:
                 # Всегда первым — риск!
                 if risk_tasks:
                     await self.handle_odrers.compose_trade_instruction(task_list=risk_tasks)
+                await asyncio.sleep(0)
 
                 # Открытия после рисков
                 if signal_tasks:

@@ -291,45 +291,47 @@ class WS_HotPrice_Stream:
         ws_url = f"{self.ws_url_base}stream?streams={'/'.join(streams)}"
 
         while not self.ws_shutdown_event.is_set():
-
-            ok = await self._connect_with_rotation(ws_url)
-            if not ok:
-                self.info_handler.debug_error_notes("[WS] Не найден рабочий прокси.")
-                await asyncio.sleep(3)
-                continue
-
-            self.is_connected = True
-
-            # run ping
-            self.ping_task = asyncio.create_task(self._ping_loop())
-
             try:
-                async for msg in self.websocket:
-                    if self.ws_shutdown_event.is_set():
-                        break
-                    if msg.type == aiohttp.WSMsgType.TEXT:
-                        await self._handle_ws_message(msg.data)
-                    elif msg.type in (aiohttp.WSMsgType.ERROR, aiohttp.WSMsgType.CLOSED):
-                        break
+                ok = await self._connect_with_rotation(ws_url)
+                if not ok:
+                    self.info_handler.debug_error_notes("[WS] Не найден рабочий прокси.")
+                    await asyncio.sleep(3)
+                    continue
 
-            except Exception as e:
-                self.info_handler.debug_error_notes(f"[WS LOOP ERROR] {e}")
+                self.is_connected = True
 
-            # on disconnect
-            self.is_connected = False
+                # run ping
+                self.ping_task = asyncio.create_task(self._ping_loop())
 
-            if self.ping_task:
-                self.ping_task.cancel()
-                with contextlib.suppress(asyncio.CancelledError):
-                    await self.ping_task
+                try:
+                    async for msg in self.websocket:
+                        if self.ws_shutdown_event.is_set():
+                            break
+                        if msg.type == aiohttp.WSMsgType.TEXT:
+                            await self._handle_ws_message(msg.data)
+                        elif msg.type in (aiohttp.WSMsgType.ERROR, aiohttp.WSMsgType.CLOSED):
+                            break
 
-            # close session fully
-            if self.session and not self.session.closed:
-                await self.session.close()
-                self.session = None
+                except Exception as e:
+                    self.info_handler.debug_error_notes(f"[WS LOOP ERROR] {e}")
 
-            self._switch_to_next_proxy()
-            await asyncio.sleep(1)
+                # on disconnect
+                self.is_connected = False
+
+                if self.ping_task:
+                    self.ping_task.cancel()
+                    with contextlib.suppress(asyncio.CancelledError):
+                        await self.ping_task
+
+                # close session fully
+                if self.session and not self.session.closed:
+                    await self.session.close()
+                    self.session = None
+
+                self._switch_to_next_proxy()
+            
+            finally:
+                await asyncio.sleep(1)
 
         self.info_handler.debug_error_notes("[WS] Main loop stopped")
 
