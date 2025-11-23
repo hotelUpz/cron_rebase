@@ -46,52 +46,52 @@ class StrategySettings():
 
 class UsersSettings():
     users_config = {
-        "IraInvest": {                                  # -- имя пользователя
-            "keys": {
-                "BINANCE_API_PUBLIC_KEY": "atvd6xJm8aCJKyCeeqnFdidbNoHAz4OwHMBVEMNCnfhKjUoiJ2F6LPJ11eHeyoZ5", # Ira base
-                "BINANCE_API_PRIVATE_KEY": "0QOqV5mlLLPFUIIVxc7kSIjAqKVFEWrKje1d2sT0UkCrsXc7DD4wYNgn39wCTvyG"
-            },
+        # "IraInvest": {                                  # -- имя пользователя
+        #     "keys": {
+        #         "BINANCE_API_PUBLIC_KEY": "atvd6xJm8aCJKyCeeqnFdidbNoHAz4OwHMBVEMNCnfhKjUoiJ2F6LPJ11eHeyoZ5", # Ira base
+        #         "BINANCE_API_PRIVATE_KEY": "0QOqV5mlLLPFUIIVxc7kSIjAqKVFEWrKje1d2sT0UkCrsXc7DD4wYNgn39wCTvyG"
+        #     },
 
-            "proxies": [
-                None
-                # {
-                #     "enable": True,
-                #     "proxy_address": '154.218.20.43',
-                #     "proxy_port": '64630',
-                #     "proxy_login": '1FDJcwJR',
-                #     "proxy_password": 'U2yrFg4a'
-                # }
-            ],
+        #     "proxies": [
+        #         None
+        #         # {
+        #         #     "enable": True,
+        #         #     "proxy_address": '154.218.20.43',
+        #         #     "proxy_port": '64630',
+        #         #     "proxy_login": '1FDJcwJR',
+        #         #     "proxy_password": 'U2yrFg4a'
+        #         # }
+        #     ],
 
-            "core": { 
-                "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
-                "quote_asset": "USDT",            # → валюта, в которой указана цена (например, USDT, USDC, BUSD)
-                "direction": 3,                   # 1 -- LONG, 2 --SHORT, 3 -- BOTH
-                "long_positions_limit": 4,        # количество одновременно открываемых лонгов
-                "short_positions_limit": 4,       # количество одновременно открываемых шортов
-            },
+        #     "core": { 
+        #         "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
+        #         "quote_asset": "USDT",            # → валюта, в которой указана цена (например, USDT, USDC, BUSD)
+        #         "direction": 3,                   # 1 -- LONG, 2 --SHORT, 3 -- BOTH
+        #         "long_positions_limit": 4,        # количество одновременно открываемых лонгов
+        #         "short_positions_limit": 4,       # количество одновременно открываемых шортов
+        #     },
 
-            "symbols_risk": {
-                # # ____________________ # -- здесь через запятую точечная настройка рисков для конкретного символа (как ниже)
-                "ANY_COINS": {
-                    "margin_size": 25.6,          # размер маржи в USDT (либо другой базовой валюте)
-                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
-                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
-                    "fallback_sl": None,           # tp на случай отказа основного тейка
-                    "tp": 0.6,  # TP             # %, float, положительное значение. Отключено -- None
-                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
-                    "fallback_tp": 0.9,           # tp на случай отказа основного тейка
-                },
-            },
+        #     "symbols_risk": {
+        #         # # ____________________ # -- здесь через запятую точечная настройка рисков для конкретного символа (как ниже)
+        #         "ANY_COINS": {
+        #             "margin_size": 25.6,          # размер маржи в USDT (либо другой базовой валюте)
+        #             "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+        #             "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+        #             "fallback_sl": None,           # tp на случай отказа основного тейка
+        #             "tp": 0.6,  # TP             # %, float, положительное значение. Отключено -- None
+        #             "tp_order_type": "LIMIT",    # MARKET | LIMIT
+        #             "fallback_tp": 0.9,           # tp на случай отказа основного тейка
+        #         },
+        #     },
 
-            "strategies_symbols": [
-                ("cron", {                                  # -- название стратегии
-                    "enable": True,
-                    "symbols": {"BR", "ARIA", "REI", "SOPH"},
-                }),
-            ],
+        #     "strategies_symbols": [
+        #         ("cron", {                                  # -- название стратегии
+        #             "enable": True,
+        #             "symbols": {"BR", "ARIA", "REI", "SOPH"},
+        #         }),
+        #     ],
 
-        },
+        # },
 
         "SlavikInvest": {                                  # -- имя пользователя
             "keys": {
@@ -127,8 +127,8 @@ class UsersSettings():
                 "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
                 "quote_asset": "USDT",            # → валюта, в которой указана цена (например, USDT, USDC, BUSD)
                 "direction": 3,                   # 1 -- LONG, 2 --SHORT, 3 -- BOTH
-                "long_positions_limit": 4,        # количество одновременно открываемых лонгов
-                "short_positions_limit": 4,       # количество одновременно открываемых шортов
+                "long_positions_limit": 5,        # количество одновременно открываемых лонгов
+                "short_positions_limit": 5,       # количество одновременно открываемых шортов
             },
 
             "symbols_risk": {
@@ -147,7 +147,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"BR", "ARIA", "REI", "SOPH"},         # -- -//- (либо указать вручную)
+                    "symbols": {"BR", "ARIA", "REI", "SOPH", "PARTI"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -185,7 +185,7 @@ class UsersSettings():
                 #     "proxy_login": 'nikolassmsttt0Icgm',
                 #     "proxy_password": 'agrYpvDz7D'
                 # },
-                # None  # локальный ip адрес
+                None,  # локальный ip адрес
                 {
                     "enable": True,
                     "proxy_address": '154.218.20.43',
@@ -198,8 +198,8 @@ class UsersSettings():
                 "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
                 "quote_asset": "USDT",            # → валюта, в которой указана цена (например, USDT, USDC, BUSD)
                 "direction": 3,                   # 1 -- LONG, 2 --SHORT, 3 -- BOTH
-                "long_positions_limit": 4,        # количество одновременно открываемых лонгов
-                "short_positions_limit": 4,       # количество одновременно открываемых шортов
+                "long_positions_limit": 5,        # количество одновременно открываемых лонгов
+                "short_positions_limit": 5,       # количество одновременно открываемых шортов
             },
 
             "symbols_risk": {
@@ -218,7 +218,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"BR", "ARIA", "REI", "SOPH"},         # -- -//- (либо указать вручную)
+                    "symbols": {"BR", "ARIA", "REI", "SOPH", "PARTI"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
