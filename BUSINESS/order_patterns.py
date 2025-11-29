@@ -383,6 +383,86 @@ class HandleOrders:
         return success, parsed
 
     # ------------------------------------------------------------------
+    # async def _execute_single_order(self, task: Dict):
+
+    #     user = task["user_name"]
+    #     symbol = task["symbol"]
+    #     strategy = task["strategy_name"]
+    #     position_side = task["position_side"]   # LONG / SHORT
+    #     status = task["status"]                 # is_opening / is_avg / is_closing
+    #     debug = task["debug_label"]
+
+    #     session = task["client_session"]
+    #     binance: BinancePrivateApi = task["binance_client"]
+
+    #     qty = task["_qty"]
+
+    #     # ---- доп. защита: сверяемся с текущим состоянием позиции ----
+    #     pos = (
+    #         self.context.position_vars
+    #             .get(user, {})
+    #             .get(strategy, {})
+    #             .get(symbol, {})
+    #             .get(position_side, {})
+    #     )
+
+    #     in_position = pos.get("in_position", False)
+
+    #     if status == "is_closing" and not in_position:
+    #         # Нечего закрывать
+    #         return
+
+    #     if status == "is_opening" and in_position:
+    #         # Уже в позиции — не открываем повторно
+    #         return
+
+    #     if status == "is_avg" and not in_position:
+    #         # Усреднять нечего
+    #         return
+
+    #     prev_avg_price = pos.get("avg_price") if pos else None
+
+    #     order_side = self._market_side(status, position_side)
+
+    #     # ------------------------------
+    #     # MARKET-ОРДЕР
+    #     # ------------------------------
+    #     ok, _ = await self._market_order(
+    #         binance, session, strategy, symbol, position_side, order_side, qty, debug
+    #     )
+    #     if not ok:
+    #         return
+
+    #     # ------------------------------
+    #     # ЛОГИКА ПОСЛЕ MARKET
+    #     # ------------------------------
+
+    #     # 1) Закрытие: просто отменяем риск-ордера и выходим
+    #     if status == "is_closing":
+    #         await self._cancel_risk_orders(binance, session, task)
+    #         return
+
+    #     # 2) Усреднение: сначала отменяем старые риск-ордера
+    #     if status == "is_avg":
+    #         await self._cancel_risk_orders(binance, session, task)
+
+    #     # 3) Для открытия и усреднения — ждём обновления позиции,
+    #     #    а потом ставим TP/SL
+    #     updated_pos = await self._wait_for_position_update(
+    #         user_name=user,
+    #         strategy_name=strategy,
+    #         symbol=symbol,
+    #         position_side=position_side,
+    #         prev_avg_price=prev_avg_price,
+    #         debug_label=debug
+    #     )
+    #     if not updated_pos:
+    #         # если контекст не обновился — лучше не ставить TP/SL,
+    #         # чтобы не насрать кривыми ордерами
+    #         return
+
+    #     await self._place_risk_orders(binance, session, task)
+
     async def _execute_single_order(self, task: Dict):
 
         user = task["user_name"]
@@ -397,7 +477,6 @@ class HandleOrders:
 
         qty = task["_qty"]
 
-        # ---- доп. защита: сверяемся с текущим состоянием позиции ----
         pos = (
             self.context.position_vars
                 .get(user, {})
@@ -408,46 +487,74 @@ class HandleOrders:
 
         in_position = pos.get("in_position", False)
 
+        # --- Защитные проверки ---
         if status == "is_closing" and not in_position:
-            # Нечего закрывать
             return
-
         if status == "is_opening" and in_position:
-            # Уже в позиции — не открываем повторно
             return
-
         if status == "is_avg" and not in_position:
-            # Усреднять нечего
             return
 
         prev_avg_price = pos.get("avg_price") if pos else None
 
+        # ==========================
+        # 1️⃣ Установка leverage и margin без промедления
+        # ==========================
+        cfg = self.context.total_settings[user]["symbols_risk"]
+        key = symbol if symbol in cfg else "ANY_COINS"
+
+        leverage = cfg[key].get("leverage", 1)
+        margin_type = (
+            self.context.total_settings[user]
+            .get("core", {})
+            .get("margin_type", "CROSSED")
+        )
+
+        try:
+            if status in ("is_opening", "is_avg"):
+                await binance.set_margin_type(
+                    session=session,
+                    strategy_name=strategy,
+                    symbol=symbol,
+                    margin_type=margin_type
+                )
+                await binance.set_leverage(
+                    session=session,
+                    strategy_name=strategy,
+                    symbol=symbol,
+                    lev_size=int(leverage)
+                )
+        except Exception as e:
+            self.info_handler.debug_error_notes(
+                f"[LEVER/MARGIN ERROR]{debug} → {e}",
+                is_print=True
+            )
+
+        # ==========================
+        # 2️⃣ MARKET ORDER
+        # ==========================
         order_side = self._market_side(status, position_side)
 
-        # ------------------------------
-        # MARKET-ОРДЕР
-        # ------------------------------
         ok, _ = await self._market_order(
             binance, session, strategy, symbol, position_side, order_side, qty, debug
         )
         if not ok:
             return
 
-        # ------------------------------
-        # ЛОГИКА ПОСЛЕ MARKET
-        # ------------------------------
+        # ==========================
+        # 3️⃣ Реакция на тип операции
+        # ==========================
 
-        # 1) Закрытие: просто отменяем риск-ордера и выходим
+        # Закрытие — сразу отменяем TP/SL и уходим
         if status == "is_closing":
             await self._cancel_risk_orders(binance, session, task)
             return
 
-        # 2) Усреднение: сначала отменяем старые риск-ордера
+        # Усреднение — отменяем старые TP/SL
         if status == "is_avg":
             await self._cancel_risk_orders(binance, session, task)
 
-        # 3) Для открытия и усреднения — ждём обновления позиции,
-        #    а потом ставим TP/SL
+        # Ждём обновления позиции
         updated_pos = await self._wait_for_position_update(
             user_name=user,
             strategy_name=strategy,
@@ -457,10 +564,9 @@ class HandleOrders:
             debug_label=debug
         )
         if not updated_pos:
-            # если контекст не обновился — лучше не ставить TP/SL,
-            # чтобы не насрать кривыми ордерами
             return
 
+        # Ставим TP/SL если есть в конфиге
         await self._place_risk_orders(binance, session, task)
 
     # ------------------------------------------------------------------
