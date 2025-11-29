@@ -134,7 +134,16 @@ class Core:
         # print("PUBLIC_SESSION READY:", self.public_session)
 
         self.binance_public: BinancePublicApi = self.container.get("binance_public")
-        self.context.symbol_info = await self.binance_public.get_exchange_info(self.public_session)
+        for _ in range(10):  # попытки получить инструменты
+            try:
+                symbol_info = await self.binance_public.get_exchange_info(self.public_session)
+                if symbol_info:
+                    self.context.symbol_info = symbol_info
+                    break
+            except Exception as e:
+                self.info_handler.debug_error_notes(f"[ERROR] Failed to fetch instruments: {e}", is_print=True)
+            await asyncio.sleep(1)
+            
         # print(self.context.symbol_info)
         position_vars_setup: PositionVarsSetup = self.container.get("position_vars_setup")
         position_vars_setup.setup_pos_vars()

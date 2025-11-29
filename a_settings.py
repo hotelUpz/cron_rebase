@@ -113,14 +113,14 @@ class UsersSettings():
                     "proxy_port": "62772",
                     "proxy_login": "1FDJcwJR",
                     "proxy_password": "U2yrFg4a"
+                },
+                {
+                    "enable": True,
+                    "proxy_address": '45.192.135.214',
+                    "proxy_port": '59100',
+                    "proxy_login":'nikolassmsttt0Icgm',
+                    "proxy_password": 'agrYpvDz7D'
                 }
-                # {
-                #     "enable": True,
-                #     "proxy_address": '45.192.135.214',
-                #     "proxy_port": '59100',
-                #     "proxy_login":'nikolassmsttt0Icgm',
-                #     "proxy_password": 'agrYpvDz7D'
-                # }
             ],
 
             "core": { 
