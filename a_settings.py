@@ -1,3 +1,9 @@
+# a_settings.py
+
+from typing import *
+import os
+
+
 class StrategySettings():
     strategy_notes = [      
         ("cron", {                                    # Ключ - название стратегии, можно любой например с суфиксами (volf_stoch1)
@@ -95,8 +101,8 @@ class UsersSettings():
 
         "SlavikInvest": {                                  # -- имя пользователя
             "keys": {
-                "BINANCE_API_PUBLIC_KEY": "yUCSKOy5R9mI7m1g0FBoLbjuAYQdhuzivtACOdIYZZ2cr1NqRnynXJ6EqL6cKi3f", # Славик base
-                "BINANCE_API_PRIVATE_KEY": "LGtTD2UfJwbir1HOjNwB23UHsTqgW8IoPuc2yR3XjYGoCiBWqREJSgY4o5RWEOTJ"
+                "BINANCE_API_PUBLIC_KEY": os.getenv("BINANCE_API_PUBLIC_KEY_SL1"), # Славик base
+                "BINANCE_API_PRIVATE_KEY": os.getenv("BINANCE_API_PRIVATE_KEY_SL1")
             },
 
             "proxies": [
@@ -173,8 +179,8 @@ class UsersSettings():
 
         "Nik": {                                  # -- имя пользователя
             "keys": {
-                "BINANCE_API_PUBLIC_KEY": "Vz2ImnNehZn8fCpsnUn7cUcaBCZ5TuS5RW4CqCUZH2pxcv9KUzCvXOgxJygXw1yc", # -- my base
-                "BINANCE_API_PRIVATE_KEY": "h0uGoxCeDF9U2mk0NJvWvKld0rTsoV0pWFyCgqoH78NFRIicAXYf6KHkh6GCIitB",
+                "BINANCE_API_PUBLIC_KEY": os.getenv("BINANCE_API_PUBLIC_KEY_MYBASE"), # my base
+                "BINANCE_API_PRIVATE_KEY": os.getenv("BINANCE_API_PRIVATE_KEY_MYBASE")
             },
 
             # "keys": {
