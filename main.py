@@ -143,7 +143,7 @@ class Core:
             except Exception as e:
                 self.info_handler.debug_error_notes(f"[ERROR] Failed to fetch instruments: {e}", is_print=True)
             await asyncio.sleep(1)
-            
+
         # print(self.context.symbol_info)
         position_vars_setup: PositionVarsSetup = self.container.get("position_vars_setup")
         position_vars_setup.setup_pos_vars()
@@ -404,7 +404,7 @@ class Core:
                         self.info_handler.debug_error_notes(f"[ERROR] Failed to fetch instruments: {e}", is_print=True)
                     last_instrume_time = now
 
-                now = time.monotonic()
+                now = time.monotonic() 
                 if WRITE_TO_LOG and now - last_write_logs_time >= write_logs_interval:
                     try:
                         await self.write_log.write_logs()

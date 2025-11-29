@@ -525,21 +525,21 @@ class Sync(PositionCleaner):
             if not positions:
                 return     
                    
-            # async with self.context.pos_lock:
-            # Параллельная обработка всех стратегий пользователя
-            await asyncio.gather(*[
-                self.update_positions(
-                    session,
-                    user_name,
-                    strategy_name,
-                    strategy_details.get("symbols", set()),
-                    positions,
-                    cancel_all_risk_orders,
-                    get_realized_pnl,
-                    make_order
-                )
-                for strategy_name, strategy_details in self.context.total_settings[user_name].get("strategies_symbols", {}).items()
-            ])
+            async with self.context.pos_lock:
+                # Параллельная обработка всех стратегий пользователя
+                await asyncio.gather(*[
+                    self.update_positions(
+                        session,
+                        user_name,
+                        strategy_name,
+                        strategy_details.get("symbols", set()),
+                        positions,
+                        cancel_all_risk_orders,
+                        get_realized_pnl,
+                        make_order
+                    )
+                    for strategy_name, strategy_details in self.context.total_settings[user_name].get("strategies_symbols", {}).items()
+                ])
 
         except aiohttp.ClientError as e:
             self.info_handler.debug_error_notes(f"{debug_label}[HTTP Error] Failed to fetch positions: {e}. ")
@@ -567,39 +567,39 @@ class Sync(PositionCleaner):
             make_order=binance_client.make_order
         )   
 
-    # # ------------------------------
-    # # POS LOOP
-    # # ------------------------------
-    # async def run_positions_sync_loop(self):
-    #     cycle_time = time.monotonic()
+    # ------------------------------
+    # POS LOOP
+    # ------------------------------
+    async def run_positions_sync_loop(self):
+        cycle_time = time.monotonic()
 
-    #     while not self.context.stop_bot:
-    #         now = time.monotonic()
-    #         if now - cycle_time >= POS_UPDATE_FREQUENCY:
+        while not self.context.stop_bot:
+            now = time.monotonic()
+            if now - cycle_time >= POS_UPDATE_FREQUENCY:
 
-    #             for user_name in list(self.context.total_settings.keys()):
-    #                 try:
-    #                     await self._sync_user_positions(user_name)
-    #                 except Exception as e:
-    #                     print(f"[SYNC][{user_name}] ERROR: {e}")
+                for user_name in list(self.context.total_settings.keys()):
+                    try:
+                        await self._sync_user_positions(user_name)
+                    except Exception as e:
+                        print(f"[SYNC][{user_name}] ERROR: {e}")
 
-    #                 # микропаузa: анти-flood Binance
-    #                 await asyncio.sleep(0)
+                    # микропаузa: анти-flood Binance
+                    await asyncio.sleep(0)
 
-    #             cycle_time = now
+                cycle_time = now
 
-    #         await asyncio.sleep(0.25)
+            await asyncio.sleep(0.25)
 
 
-    async def positions_flow_manager(self):
-        """Цикл обновления позиций и синхронизации кэша"""
+    # async def positions_flow_manager(self):
+    #     """Цикл обновления позиций и синхронизации кэша"""
 
-        all_users = list(self.context.total_settings.keys())    
+    #     all_users = list(self.context.total_settings.keys())    
 
-        while not self.context.stop_bot:            
-            try:
-                await asyncio.gather(*[self._sync_user_positions(user_name) for user_name in all_users])
-            except Exception as e:
-                print(f"[SYNC][ERROR] refresh_positions_state: {e}")
-            finally:
-                await asyncio.sleep(POS_UPDATE_FREQUENCY)
+    #     while not self.context.stop_bot:            
+    #         try:
+    #             await asyncio.gather(*[self._sync_user_positions(user_name) for user_name in all_users])
+    #         except Exception as e:
+    #             print(f"[SYNC][ERROR] refresh_positions_state: {e}")
+    #         finally:
+    #             await asyncio.sleep(POS_UPDATE_FREQUENCY)
