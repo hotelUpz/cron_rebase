@@ -107,18 +107,18 @@ class UsersSettings():
 
             "proxies": [
                 {
-                    "enable": True,
-                    "proxy_address": '154.222.214.132',
-                    "proxy_port": '62890',
-                    "proxy_login": '1FDJcwJR',
-                    "proxy_password": 'U2yrFg4a'
-                },
-                {
                     "enable": True,                   #  Берлин новый 18.102025
                     "proxy_address": "154.219.192.28",
                     "proxy_port": "62772",
                     "proxy_login": "1FDJcwJR",
                     "proxy_password": "U2yrFg4a"
+                },
+                {
+                    "enable": True,
+                    "proxy_address": '154.222.214.132',
+                    "proxy_port": '62890',
+                    "proxy_login": '1FDJcwJR',
+                    "proxy_password": 'U2yrFg4a'
                 },
                 {
                     "enable": True,
