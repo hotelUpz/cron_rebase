@@ -138,7 +138,7 @@ class BinancePrivateApi(HTTP_Validator):
 
         headers = {"X-MBX-APIKEY": self.api_key}
         rows = []
-        max_retries = 7
+        max_retries = 2
 
         for attempt in range(1, max_retries + 1):
             try:
