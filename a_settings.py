@@ -304,15 +304,15 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
                 },
-                # "PIPPIN": {
-                #     "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
-                #     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
-                #     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
-                #     "fallback_sl": None,           # tp на случай отказа основного тейка
-                #     "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
-                #     "tp_order_type": "LIMIT",    # MARKET | LIMIT
-                #     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
-                # },
+                "PIPPIN": {
+                    "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
                 "NTRN": {
                     "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
@@ -336,7 +336,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"ARC", "ARIA", "REI", "SOPH", "PARTI", "NTRN"},         # -- -//- (либо указать вручную)
+                    "symbols": {"ARC", "ARIA", "REI", "SOPH", "PARTI", "NTRN", "PIPPIN"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
