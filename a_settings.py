@@ -133,8 +133,8 @@ class UsersSettings():
                 "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
                 "quote_asset": "USDT",            # → валюта, в которой указана цена (например, USDT, USDC, BUSD)
                 "direction": 3,                   # 1 -- LONG, 2 --SHORT, 3 -- BOTH
-                "long_positions_limit": 10,        # количество одновременно открываемых лонгов
-                "short_positions_limit": 10,       # количество одновременно открываемых шортов
+                "long_positions_limit": 100,        # количество одновременно открываемых лонгов
+                "short_positions_limit": 100,       # количество одновременно открываемых шортов
             },
 
             "symbols_risk": {
@@ -148,8 +148,8 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
                 },
-                "PARTI": {
-                    "margin_size": 150.0,          # размер маржи в USDT (либо другой базовой валюте)
+                "REI": {
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -158,7 +158,7 @@ class UsersSettings():
                     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
                 },
                 "NTRN": {
-                    "margin_size": 150.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -175,12 +175,70 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
                 },
+
+
+                "LSK": {
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
+                "PIEVERSE": {
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
+                "ARC": {
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
+
+
+                "ALCH": {
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
+                "TURBO": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
+                "B": {
+                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
             },
 
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "BR", "ARIA", "REI", "SOPH", "PARTI", "NTRN"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "ARIA", "REI", "SOPH", "PARTI", "NTRN", "LSK", "PIEVERSE", "ARC", "ALCH", "TURBO", "B"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -231,8 +289,8 @@ class UsersSettings():
                 "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
                 "quote_asset": "USDT",            # → валюта, в которой указана цена (например, USDT, USDC, BUSD)
                 "direction": 3,                   # 1 -- LONG, 2 --SHORT, 3 -- BOTH
-                "long_positions_limit": 10,        # количество одновременно открываемых лонгов
-                "short_positions_limit": 10,       # количество одновременно открываемых шортов
+                "long_positions_limit": 100,        # количество одновременно открываемых лонгов
+                "short_positions_limit": 100,       # количество одновременно открываемых шортов
             },
 
             "symbols_risk": {
@@ -246,8 +304,17 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
                 },
-                "PARTI": {
-                    "margin_size": 81.6,          # размер маржи в USDT (либо другой базовой валюте)
+                # "PIPPIN": {
+                #     "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
+                #     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                #     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                #     "fallback_sl": None,           # tp на случай отказа основного тейка
+                #     "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                #     "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                #     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                # },
+                "NTRN": {
+                    "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -255,8 +322,8 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
                 },
-                "NTRN": {
-                    "margin_size": 81.6,          # размер маржи в USDT (либо другой базовой валюте)
+                "ARC": {
+                    "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -269,7 +336,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "BR", "ARIA", "REI", "SOPH", "PARTI", "NTRN"},         # -- -//- (либо указать вручную)
+                    "symbols": {"ARC", "ARIA", "REI", "SOPH", "PARTI", "NTRN"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
