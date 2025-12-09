@@ -265,14 +265,8 @@ class UsersSettings():
                 #     "proxy_login": 'nikolassmsttt0Icgm',
                 #     "proxy_password": 'agrYpvDz7D'
                 # },
-                None,  # локальный ip адрес
-                {
-                    "enable": True,
-                    "proxy_address": '154.218.20.43',
-                    "proxy_port": '64630',
-                    "proxy_login": '1FDJcwJR',
-                    "proxy_password": 'U2yrFg4a'
-                }
+                None # локальный ip адрес
+
             ],
             "core": { 
                 "margin_type": "CROSSED",         # Тип маржи. Кросс-маржа → "CROSSED", Изолированная → "ISOLATED"
