@@ -148,7 +148,7 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
                 },
-                "REI": {
+                "ARIA": {
                     "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
@@ -206,7 +206,7 @@ class UsersSettings():
                     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
                 },
                 "TURBO": {
-                    "margin_size": 150.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 200.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -219,7 +219,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "ARIA", "REI", "SOPH", "PARTI", "NTRN", "LSK", "PIEVERSE", "ALCH", "TURBO"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "ARIA", "SOPH", "PARTI", "NTRN", "LSK", "PIEVERSE", "ALCH", "TURBO"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -285,6 +285,24 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
                 },
+                "ARIA": {
+                    "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
+                "TURBO": {
+                    "margin_size": 121.6,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.5,           # tp на случай отказа основного тейка
+                },
                 "PIPPIN": {
                     "margin_size": 41.6,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
@@ -317,7 +335,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"LSK", "ARIA", "REI", "SOPH", "PARTI", "NTRN", "PIPPIN"},         # -- -//- (либо указать вручную)
+                    "symbols": {"LSK", "ARIA", "SOPH", "PARTI", "NTRN", "PIPPIN", "TURBO"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
