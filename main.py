@@ -455,4 +455,4 @@ if __name__ == "__main__":
 
 # ssh-add -l        # выведет список добавленных ключей или "The agent has no identities"
 
-# ssh -T git@github.com
+# ssh -T git@github.com 
