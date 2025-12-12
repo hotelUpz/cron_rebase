@@ -115,13 +115,6 @@ class UsersSettings():
                 },
                 {
                     "enable": True,
-                    "proxy_address": '45.192.135.214',
-                    "proxy_port": '59100',
-                    "proxy_login":'nikolassmsttt0Icgm',
-                    "proxy_password": 'agrYpvDz7D'
-                },
-                {
-                    "enable": True,
                     "proxy_address": '154.218.20.43',
                     "proxy_port": '64630',
                     "proxy_login": '1FDJcwJR',
@@ -401,3 +394,7 @@ EMO_ORDER_FILLED = "🤞"
 # curl -x 'http://91.213.85.16:63312' --proxy-user '1FDJcwJR:U2yrFg4a' https://ipinfo.io/json
 # curl -x 'http://45.152.118.95:62340' --proxy-user '1FDJcwJR:U2yrFg4a' https://ipinfo.io/json
 # curl -x 'http://154.219.192.28:62772' --proxy-user '1FDJcwJR:U2yrFg4a' https://ipinfo.io/json
+
+
+
+curl -x 'http://154.222.214.132:62890' --proxy-user '1FDJcwJR:U2yrFg4a' https://ipinfo.io/json
