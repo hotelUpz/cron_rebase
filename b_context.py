@@ -264,8 +264,9 @@ class PositionVarsSetup:
                     self.info_handler.debug_error_notes(f"⚠️ [INFO]: Не удается получить precisions для {symbol}")
             except Exception as e:
                 self.info_handler.debug_error_notes(f"⚠️ [ERROR] при получении precisions для {symbol}: {e}")
-                self.context.stop_bot = True
-                raise RuntimeError(f"Ошибка получения precision для {symbol}: {e}")
+                # self.context.stop_bot = True
+                # raise RuntimeError(f"Ошибка получения precision для {symbol}: {e}")
+                return False
 
             if qty_prec is None or price_prec is None:
                 print(f"❌ Не удалось определить qty/price precision для {symbol}")

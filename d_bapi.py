@@ -26,7 +26,7 @@ class BinancePublicApi:
         try:    
             async with session.get(self.exchangeInfo_url, params=params) as response:            
                 if response.status != 200:
-                    self.info_handler.debug_error_notes(f"Failed to fetch positions: {response.status}")
+                    self.info_handler.debug_error_notes(f"Failed to fetch instruments: {response.status}")
                 return await response.json()  
         except Exception as ex:
             self.info_handler.debug_error_notes(f"{ex} in {inspect.currentframe().f_code.co_name} at line {inspect.currentframe().f_lineno}")
