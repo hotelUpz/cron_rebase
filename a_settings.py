@@ -397,4 +397,4 @@ EMO_ORDER_FILLED = "🤞"
 
 
 
-curl -x 'http://154.222.214.132:62890' --proxy-user '1FDJcwJR:U2yrFg4a' https://ipinfo.io/json
+# curl -x 'http://154.222.214.132:62890' --proxy-user '1FDJcwJR:U2yrFg4a' https://ipinfo.io/json
