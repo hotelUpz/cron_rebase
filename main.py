@@ -397,7 +397,7 @@ class Core:
                     try:
                         symbol_info = await self.binance_public.get_exchange_info(self.public_session)
                         if not symbol_info:
-                            self.info_handler.debug_error_notes(f"[ERROR] Failed to fetch instruments: {e}", is_print=True)
+                            self.info_handler.debug_error_notes(f"[ERROR] Failed to fetch instruments", is_print=True)
                         else:
                             self.context.symbol_info = symbol_info
                     except Exception as e:

@@ -300,7 +300,8 @@ class PositionVarsSetup:
                 symbols = strategy_details.get("symbols", set())
                 if not symbols:
                     self.info_handler.debug_error_notes(f"⚠️ {dubug_label}: символы пусты. ")
-                    raise
+                    # raise
+                    return
 
                 for pos_side in ["LONG", "SHORT"]:
                     for symbol in symbols.copy():
