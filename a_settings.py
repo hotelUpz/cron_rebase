@@ -238,7 +238,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "ICNT", "SOPH", "PARTI", "LSK", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "ICNT", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -348,7 +348,8 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"LSK", "ICNT", "SOPH", "PARTI", "TURBO", "POWER"},         # -- -//- (либо указать вручную)
+                    # "symbols": {"ICNT", "TURBO", "POWER"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "ICNT", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
