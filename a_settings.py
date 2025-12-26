@@ -161,7 +161,7 @@ class UsersSettings():
                     "fallback_tp": 0.9,           # tp на случай отказа основного тейка
                 },
                 "PIPPIN": {
-                    "margin_size": 50.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -179,7 +179,7 @@ class UsersSettings():
                     "fallback_tp": 1.0,           # tp на случай отказа основного тейка
                 },
                 "PIEVERSE": {
-                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 200.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -233,12 +233,31 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 1.2,           # tp на случай отказа основного тейка
                 },
+
+                "ZKP": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 0.6,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.0,           # tp на случай отказа основного тейка
+                },
+                "BEAT": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 0.6,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.0,           # tp на случай отказа основного тейка
+                },
             },
 
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "ICNT", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "ICNT", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -349,7 +368,7 @@ class UsersSettings():
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
                     # "symbols": {"ICNT", "TURBO", "POWER"},         # -- -//- (либо указать вручную)
-                    "symbols": {"PIPPIN", "ICNT", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
+                    "symbols": {"ICNT", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
