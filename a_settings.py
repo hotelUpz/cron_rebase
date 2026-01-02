@@ -257,7 +257,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT", "ICNT"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
