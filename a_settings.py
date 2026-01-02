@@ -216,7 +216,7 @@ class UsersSettings():
                     "fallback_tp": 1.5,           # tp на случай отказа основного тейка
                 },
                 "POWER": {
-                    "margin_size": 150.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 200.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
