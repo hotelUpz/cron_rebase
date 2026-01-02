@@ -257,7 +257,7 @@ class UsersSettings():
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "ICNT", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -309,7 +309,7 @@ class UsersSettings():
             "symbols_risk": {
                 # # ____________________ # -- здесь через запятую точечная настройка рисков для конкретного символа (как ниже)
                 "ANY_COINS": {
-                    "margin_size": 81.6,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 71.6,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -368,7 +368,7 @@ class UsersSettings():
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
                     # "symbols": {"ICNT", "TURBO", "POWER"},         # -- -//- (либо указать вручную)
-                    "symbols": {"ICNT", "PIEVERSE", "TURBO", "POWER", "AXL"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
