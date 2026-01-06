@@ -207,7 +207,7 @@ class UsersSettings():
                     "fallback_tp": 1.0,           # tp на случай отказа основного тейка
                 },
                 "ICNT": {
-                    "margin_size": 150.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 200.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -235,7 +235,7 @@ class UsersSettings():
                 },
 
                 "ZKP": {
-                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "margin_size": 200.0,          # размер маржи в USDT (либо другой базовой валюте)
                     "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
                     "sl": None,                  # %, float, отрицательное значение. Отключено -- None
                     "fallback_sl": None,           # tp на случай отказа основного тейка
@@ -252,16 +252,70 @@ class UsersSettings():
                     "tp_order_type": "LIMIT",    # MARKET | LIMIT
                     "fallback_tp": 1.0,           # tp на случай отказа основного тейка
                 },
+                "BREV": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.3,           # tp на случай отказа основного тейка
+                },
+                "RAVE": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 1.0,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.3,           # tp на случай отказа основного тейка
+                },
+                "COLLECT": {
+                    "margin_size": 75.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 0.7,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.0,           # tp на случай отказа основного тейка
+                },
+                "SOMI": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 0.7,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.0,           # tp на случай отказа основного тейка
+                },
+                "LYN": {
+                    "margin_size": 100.0,          # размер маржи в USDT (либо другой базовой валюте)
+                    "leverage": 10,              # размер плеча. Общий объем на сделку == (margin_size x leverage)
+                    "sl": None,                  # %, float, отрицательное значение. Отключено -- None
+                    "fallback_sl": None,           # tp на случай отказа основного тейка
+                    "tp": 0.7,  # TP             # %, float, положительное значение. Отключено -- None
+                    "tp_order_type": "LIMIT",    # MARKET | LIMIT
+                    "fallback_tp": 1.0,           # tp на случай отказа основного тейка
+                },
             },
 
             "strategies_symbols": [
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
-                    "symbols": {"PIPPIN", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT", "ICNT"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIPPIN", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP",
+                                "BEAT", "ICNT", "BREV", "RAVE", "COLLECT", "SOMI", "LYN"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
         },
+
+# ICNT до 2000
+# Zkp до 2000
+# Brev 1000 1% тейк
+# RAVE 1000 1% тейк
+# COLLECT 750 0.7% тейк
+# Somi 1000 0.7% тейк
+# LYN 1000 0.7% тейк
 
         "Nik": {                                  # -- имя пользователя
             "keys": {
