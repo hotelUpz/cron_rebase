@@ -308,15 +308,6 @@ class UsersSettings():
             ],
 
         },
-
-# ICNT до 2000
-# Zkp до 2000
-# Brev 1000 1% тейк
-# RAVE 1000 1% тейк
-# COLLECT 750 0.7% тейк
-# Somi 1000 0.7% тейк
-# LYN 1000 0.7% тейк
-
         "Nik": {                                  # -- имя пользователя
             "keys": {
                 "BINANCE_API_PUBLIC_KEY": os.getenv("BINANCE_API_PUBLIC_KEY_MYBASE"), # my base
