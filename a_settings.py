@@ -303,7 +303,7 @@ class UsersSettings():
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
                     "symbols": {"PIPPIN", "PIEVERSE", "TURBO", "POWER", "AXL", "ZKP",
-                                "BEAT", "ICNT", "BREV", "RAVE", "COLLECT", "SOMI", "LYN"},         # -- -//- (либо указать вручную)
+                                "BEAT", "ICNT", "BREV", "RAVE", "COLLECT", "LYN"},         # -- -//- (либо указать вручную)
                 }),
             ],
 
@@ -413,7 +413,7 @@ class UsersSettings():
                 ("cron", {                                  # -- название стратегии
                     "enable": True,
                     # "symbols": {"ICNT", "TURBO", "POWER"},         # -- -//- (либо указать вручную)
-                    "symbols": {"PIEVERSE", "TURBO", "POWER", "AXL", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
+                    "symbols": {"PIEVERSE", "POWER", "ZKP", "BEAT"},         # -- -//- (либо указать вручную)
                     # "symbols": {"BR", "ARIA"},         # -- -//- (либо указать вручную)
                 }),
             ],
