@@ -125,8 +125,20 @@ class Average:
         debug_label: str,
     ) -> bool:
         """Проверяет необходимость усреднения и формирует сигнал."""
-        grid_cfg = settings_pos_options["entry_conditions"]["grid_orders"]
+
+        # --------------------------------------------------
+        # 🔒 защита от ложного усреднения после рестарта
+        # --------------------------------------------------
+        real_progress = symbol_data.get("avg_progress_real")
         cur_avg_progress = symbol_data.get("avg_progress_counter", 1)
+
+        if real_progress is not None and cur_avg_progress >= real_progress:
+            return False
+
+        # --------------------------------------------------
+        # обычная логика усреднения
+        # --------------------------------------------------
+        grid_cfg = settings_pos_options["entry_conditions"]["grid_orders"]
 
         new_avg_progress, avg_volume = self.avg_control_func(
             grid_cfg,
@@ -142,7 +154,7 @@ class Average:
         symbol_data["avg_progress_counter"] = new_avg_progress
         symbol_data["process_volume"] = avg_volume
 
-        safe_idx = min(new_avg_progress-1, len(grid_cfg) - 1)
+        safe_idx = min(new_avg_progress - 1, len(grid_cfg) - 1)
         self.info_handler.trades_info_notes(
             f"[{debug_label}] ➗ Усредняем. "
             f"Счётчик {cur_avg_progress} → {new_avg_progress}. "
@@ -152,6 +164,44 @@ class Average:
             True,
         )
         return True
+
+    # def check_avg_and_report(
+    #     self,
+    #     cur_price: float,
+    #     symbol_data: dict,
+    #     nPnl: float,
+    #     normalized_sign: int,
+    #     settings_pos_options: Dict,
+    #     debug_label: str,
+    # ) -> bool:
+    #     """Проверяет необходимость усреднения и формирует сигнал."""
+    #     grid_cfg = settings_pos_options["entry_conditions"]["grid_orders"]
+    #     cur_avg_progress = symbol_data.get("avg_progress_counter", 1)
+
+    #     new_avg_progress, avg_volume = self.avg_control_func(
+    #         grid_cfg,
+    #         cur_avg_progress,
+    #         normalized_sign,
+    #         nPnl,
+    #         debug_label,
+    #     )
+
+    #     if new_avg_progress == cur_avg_progress or avg_volume == 0.0:
+    #         return False
+
+    #     symbol_data["avg_progress_counter"] = new_avg_progress
+    #     symbol_data["process_volume"] = avg_volume
+
+    #     safe_idx = min(new_avg_progress-1, len(grid_cfg) - 1)
+    #     self.info_handler.trades_info_notes(
+    #         f"[{debug_label}] ➗ Усредняем. "
+    #         f"Счётчик {cur_avg_progress} → {new_avg_progress}. "
+    #         f"Cur vol: {avg_volume} "
+    #         f"Cur price: {cur_price} "
+    #         f"Indent: {grid_cfg[safe_idx]}",
+    #         True,
+    #     )
+    #     return True
 
 class RiskOrdersControl:
     """Управляет рисками и мониторингом позиций для торговых стратегий."""

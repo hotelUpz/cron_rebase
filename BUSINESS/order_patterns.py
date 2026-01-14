@@ -208,6 +208,73 @@ class HandleOrders:
             return "SELL" if is_long else "BUY"
 
         raise ValueError(f"Unknown status '{status}' for _market_side()")
+    
+    # ------------------------------------------------------------------
+    def _cap_qty_by_symbol_limit(
+        self,
+        *,
+        user: str,
+        symbol: str,
+        qty: float,
+        cur_price: float,
+        avg_price: float | None,
+        comul_qty: float,
+        qty_precision: int,
+        debug: str
+    ) -> Optional[float]:
+        """
+        Жёсткий лимит позиции по символу:
+        max_usdt = margin_size * leverage
+
+        Возврат:
+        - None      → лимит уже превышен, вход ЗАПРЕЩЁН
+        - float > 0 → разрешённый qty
+        """
+
+        cfg = self.context.total_settings[user]["symbols_risk"]
+        key = symbol if symbol in cfg else "ANY_COINS"
+
+        margin = cfg[key].get("margin_size", 0.0)
+        leverage = cfg[key].get("leverage", 1)
+
+        max_usdt = margin * leverage
+
+        used_usdt = 0.0
+        if avg_price and comul_qty:
+            used_usdt = avg_price * comul_qty
+
+        free_usdt = max_usdt - used_usdt
+
+        # ❌ лимит уже исчерпан
+        if free_usdt <= 0:
+            self.info_handler.debug_error_notes(
+                f"[SYMBOL LIMIT]{debug} ❌ limit exceeded "
+                f"(used={used_usdt:.2f}, max={max_usdt:.2f})",
+                True
+            )
+            return None
+
+        max_qty_allowed = free_usdt / cur_price
+        safe_qty = min(qty, max_qty_allowed)
+        safe_qty = round(safe_qty, qty_precision)
+
+        if safe_qty <= 0:
+            self.info_handler.debug_error_notes(
+                f"[SYMBOL LIMIT]{debug} ❌ qty rounded to zero "
+                f"(free={free_usdt:.2f})",
+                True
+            )
+            return None
+
+        if safe_qty < qty:
+            self.info_handler.debug_info_notes(
+                f"[SYMBOL LIMIT]{debug} qty capped "
+                f"{qty} → {safe_qty} "
+                f"(used={used_usdt:.2f}/{max_usdt:.2f})",
+                False
+            )
+
+        return safe_qty
 
     # ------------------------------------------------------------------
     async def _wait_for_position_update(
@@ -304,51 +371,132 @@ class HandleOrders:
             t.pop("_qty", None)
 
     # ------------------------------------------------------------------
-    async def _calc_qty(self, t: Dict) -> float:
+    async def _calc_qty(self, t: Dict) -> Optional[float]:
         """
-        Расчёт количества:
-        - для is_closing: берём comul_qty из position_data
-        - для is_opening / is_avg: считаем по margin_size + leverage
+        АТОМАРНЫЙ расчёт количества:
+        - берёт цену
+        - считает qty
+        - применяет лимит по символу
         """
+
         status = t["status"]
         user = t["user_name"]
         symbol = t["symbol"]
+        strategy = t["strategy_name"]
         session = t["client_session"]
         debug = t["debug_label"]
 
+        # ---------- CLOSE ----------
         if status == "is_closing":
-            return t["position_data"].get("comul_qty", 0.0)
+            qty = t["position_data"].get("comul_qty", 0.0)
+            return qty if qty > 0 else None
 
-        cfg = self.context.total_settings[user]["symbols_risk"]
-        key = symbol if symbol in cfg else "ANY_COINS"
-
-        leverage = cfg[key].get("leverage", 1)
-        margin = cfg[key].get("margin_size", 0.0)
-
-        price = None
+        # ---------- PRICE ----------
+        cur_price = None
         for _ in range(5):
-            price = await self.get_cur_price(
+            cur_price = await self.get_cur_price(
                 session=session,
                 ws_price_data=self.context.ws_price_data,
                 symbol=symbol,
                 get_hot_price=self.get_hot_price
             )
-            if price:
+            if cur_price:
                 break
             await asyncio.sleep(0.2)
 
-        if not price:
-            self.info_handler.debug_error_notes(f"[{debug}] failed to get price for qty calc")
-            return 0.0
+        if not cur_price:
+            self.info_handler.debug_error_notes(
+                f"[{debug}] failed to get current price for qty calc",
+                True
+            )
+            return None
 
-        return self.pos_utils.size_calc(
+        # ---------- BASE QTY ----------
+        cfg = self.context.total_settings[user]["symbols_risk"]
+        key = symbol if symbol in cfg else "ANY_COINS"
+
+        margin = cfg[key].get("margin_size", 0.0)
+        leverage = cfg[key].get("leverage", 1)
+
+        raw_qty = self.pos_utils.size_calc(
             margin_size=margin,
-            entry_price=price,
+            entry_price=cur_price,
             leverage=leverage,
             volume_rate=t["position_data"].get("process_volume"),
             precision=t["qty_precision"],
             dubug_label=debug
         )
+
+        if not raw_qty or raw_qty <= 0:
+            return None
+
+        # ---------- LIMIT BY SYMBOL ----------
+        pos = (
+            self.context.position_vars
+                .get(user, {})
+                .get(strategy, {})
+                .get(symbol, {})
+                .get(t["position_side"], {})
+        )
+
+        safe_qty = self._cap_qty_by_symbol_limit(
+            user=user,
+            symbol=symbol,
+            qty=raw_qty,
+            cur_price=cur_price,
+            avg_price=pos.get("avg_price"),
+            comul_qty=pos.get("comul_qty", 0.0),
+            qty_precision=t["qty_precision"],
+            debug=debug
+        )
+
+        return safe_qty
+
+    # async def _calc_qty(self, t: Dict) -> float:
+    #     """
+    #     Расчёт количества:
+    #     - для is_closing: берём comul_qty из position_data
+    #     - для is_opening / is_avg: считаем по margin_size + leverage
+    #     """
+    #     status = t["status"]
+    #     user = t["user_name"]
+    #     symbol = t["symbol"]
+    #     session = t["client_session"]
+    #     debug = t["debug_label"]
+
+    #     if status == "is_closing":
+    #         return t["position_data"].get("comul_qty", 0.0)
+
+    #     cfg = self.context.total_settings[user]["symbols_risk"]
+    #     key = symbol if symbol in cfg else "ANY_COINS"
+
+    #     leverage = cfg[key].get("leverage", 1)
+    #     margin = cfg[key].get("margin_size", 0.0)
+
+    #     price = None
+    #     for _ in range(5):
+    #         price = await self.get_cur_price(
+    #             session=session,
+    #             ws_price_data=self.context.ws_price_data,
+    #             symbol=symbol,
+    #             get_hot_price=self.get_hot_price
+    #         )
+    #         if price:
+    #             break
+    #         await asyncio.sleep(0.2)
+
+    #     if not price:
+    #         self.info_handler.debug_error_notes(f"[{debug}] failed to get price for qty calc")
+    #         return 0.0
+
+    #     return self.pos_utils.size_calc(
+    #         margin_size=margin,
+    #         entry_price=price,
+    #         leverage=leverage,
+    #         volume_rate=t["position_data"].get("process_volume"),
+    #         precision=t["qty_precision"],
+    #         dubug_label=debug
+    #     )
 
     # ------------------------------------------------------------------
     async def _market_order(

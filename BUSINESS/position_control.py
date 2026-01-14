@@ -70,26 +70,46 @@ class GridMath:
     # -------------------------------------------------------------
     def estimate_progress(self, actual_notional: float) -> int:
         """
-        Оценивает реальный progress (сколько шагов грида отработало),
-        исходя из фактического notional (из Binance positions).
-
-        Простой и рабочий вариант:
-        - для p = 1..N считаем ожидаемый notional(p)
-        - выбираем p с минимальным |expected_notional(p) - actual_notional|
+        Определяет реальный progress грида:
+        progress = количество полностью подтверждённых шагов.
         """
-        if actual_notional <= 0 or not self.cum_notional:
+
+        if actual_notional <= 0:
             return 1
 
-        best_p = 1
-        best_diff = float("inf")
+        progress = 1
 
         for i, expected in enumerate(self.cum_notional, start=1):
-            diff = abs(expected - actual_notional)
-            if diff < best_diff:
-                best_diff = diff
-                best_p = i
+            # допускаем небольшой овершут (комиссии, округления)
+            if actual_notional + 1e-6 >= expected:
+                progress = i
+            else:
+                break
 
-        return best_p
+        return progress
+
+    # def estimate_progress(self, actual_notional: float) -> int:
+    #     """
+    #     Оценивает реальный progress (сколько шагов грида отработало),
+    #     исходя из фактического notional (из Binance positions).
+
+    #     Простой и рабочий вариант:
+    #     - для p = 1..N считаем ожидаемый notional(p)
+    #     - выбираем p с минимальным |expected_notional(p) - actual_notional|
+    #     """
+    #     if actual_notional <= 0 or not self.cum_notional:
+    #         return 1
+
+    #     best_p = 1
+    #     best_diff = float("inf")
+
+    #     for i, expected in enumerate(self.cum_notional, start=1):
+    #         diff = abs(expected - actual_notional)
+    #         if diff < best_diff:
+    #             best_diff = diff
+    #             best_p = i
+
+    #     return best_p
 
     # -------------------------------------------------------------
     @staticmethod
@@ -430,7 +450,12 @@ class Sync(PositionCleaner):
                     if real_progress > symbol_data.get("avg_progress_counter", 1):
                         symbol_data["avg_progress_counter"] = real_progress
 
-                    if real_progress > 1 and (user_name not in self.context.first_update_done or not self.context.first_update_done[user_name]):
+                    # if real_progress > 1 and (user_name not in self.context.first_update_done or not self.context.first_update_done[user_name]):
+                    if (
+                        real_progress > 1
+                        and real_progress <= symbol_data.get("avg_progress_counter", 1)
+                        and not self.context.first_update_done[user_name]
+                    ):
                         # при первом обновлении синхронизируем entry_price
                         reconstructed_entry = GridMath.reconstruct_entry_price(
                             avg_price=binance_price,
