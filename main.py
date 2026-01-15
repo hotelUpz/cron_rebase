@@ -387,7 +387,8 @@ class Core:
             finally:
                 try:
                     if self.context.report_list:
-                        asyncio.create_task(self.notifier.send_report_batches(batch_size=1))
+                        # asyncio.create_task(self.notifier.send_report_batches(batch_size=1))
+                        pass
                 except Exception as e:
                     err_msg = f"[ERROR] main finally block: {e}\n" + traceback.format_exc()
                     self.info_handler.debug_error_notes(err_msg, is_print=True)      
@@ -418,6 +419,18 @@ class Core:
 
 
 async def main():
+    # from dotenv import load_dotenv
+    # load_dotenv()
+    # import os, sys
+
+    # print("\n========== ENV DEBUG ==========")
+    # print("Python exec :", sys.executable)
+    # print("CWD         :", os.getcwd())
+    # print("VIRTUAL_ENV :", os.environ.get("VIRTUAL_ENV"))
+    # print("--------------------------------")
+    # print("PUB_KEY :", repr(os.getenv("BINANCE_API_PUBLIC_KEY_MYBASE")))
+    # print("SEC_KEY :", repr(os.getenv("BINANCE_API_PRIVATE_KEY_MYBASE")))
+    # print("================================\n")
     instance = Core()
     try:
         await instance._run()
@@ -456,3 +469,9 @@ if __name__ == "__main__":
 # ssh-add -l        # выведет список добавленных ключей или "The agent has no identities"
 
 # ssh -T git@github.com  
+
+
+# BINANCE_API_PUBLIC_KEY_SL1="0JxYlRph5B6suiPa7x5LDKyRpUs2Id9VHvFEvQMJvnHBuFqRAavhALcuw7Chdv5D"
+# BINANCE_API_PRIVATE_KEY_SL1="B1jP6mxIvxVx4jWewgUzHoDxunLidhojZhxFnNwqWXTniiZlk5C2wx1BxnwpDNHn"
+# BINANCE_API_PUBLIC_KEY_MYBASE="Vz2ImnNehZn8fCpsnUn7cUcaBCZ5TuS5RW4CqCUZH2pxcv9KUzCvXOgxJygXw1yc"
+# BINANCE_API_PRIVATE_KEY_MYBASE="h0uGoxCeDF9U2mk0NJvWvKld0rTsoV0pWFyCgqoH78NFRIicAXYf6KHkh6GCIitB"
