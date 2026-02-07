@@ -224,9 +224,9 @@ class WS_HotPrice_Stream:
     def _switch_to_next_proxy(self):
         self.proxy_index = (self.proxy_index + 1) % len(self.proxy_list)
         self.proxy_url = self.proxy_list[self.proxy_index]
-        self.info_handler.debug_error_notes(
-            f"[WS] Смена прокси → {self.proxy_url or 'без прокси'}"
-        )
+        # self.info_handler.debug_error_notes( 
+        #     f"[WS] Смена прокси → {self.proxy_url or 'без прокси'}"
+        # )
 
     # ---------------------------------------------------------
     # OPEN SESSION + CONNECT WS
@@ -247,9 +247,9 @@ class WS_HotPrice_Stream:
             self.last_connect_status = "success"
             self.last_error = None
 
-            self.info_handler.debug_info_notes(
-                f"[WS] Успешное подключение → {url} / proxy={self.proxy_url}"
-            )
+            # self.info_handler.debug_info_notes(
+            #     f"[WS] Успешное подключение → {url} / proxy={self.proxy_url}"
+            # )
             return True
 
         except Exception as e:

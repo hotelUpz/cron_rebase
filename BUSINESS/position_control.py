@@ -67,7 +67,7 @@ class GridMath:
             acc += n
             self.cum_notional.append(acc)
 
-    # -------------------------------------------------------------
+    # # -------------------------------------------------------------
     def estimate_progress(self, actual_notional: float) -> int:
         """
         Определяет реальный progress грида:

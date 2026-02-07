@@ -132,8 +132,8 @@ class Average:
         real_progress = symbol_data.get("avg_progress_real")
         cur_avg_progress = symbol_data.get("avg_progress_counter", 1)
 
-        if real_progress is not None and cur_avg_progress >= real_progress:
-            return False
+        # if real_progress is not None and cur_avg_progress >= real_progress:
+        #     return False
 
         # --------------------------------------------------
         # обычная логика усреднения
